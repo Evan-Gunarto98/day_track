@@ -95,7 +95,7 @@ app.put("/api/v1/diaries/save/:id",async(req,res)=>{
   try{
     const {id} = req.params;
     const {text} = req.body;
-    const databaseId = parseInt(id) + 1
+    const databaseId = parseInt(id) 
     // "UPDATE TODO SET description = $1 WHERE todo_id = $2",[description,id]
     const newDiary = await db.query(
       "UPDATE diaries SET text = $1 WHERE id = $2 returning *",[text,databaseId]
@@ -116,10 +116,10 @@ app.put("/api/v1/diaries/save/:id",async(req,res)=>{
 app.delete("/api/v1/diaries/:id",async(req,res)=>{
   try {
       const {id} = req.params;
-      const databaseId = parseInt(id) + 1
+      // const databaseId = parseInt(id) + 1
    
       const deleteDiary = await db.query(
-          "DELETE FROM diaries WHERE id = $1",[databaseId]
+          "DELETE FROM diaries WHERE id = $1",[id]
       );
       
       res.status(201).json({

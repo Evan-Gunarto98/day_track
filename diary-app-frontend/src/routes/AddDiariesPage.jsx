@@ -62,23 +62,20 @@ const ViewButton = styled(Button)(() => ({
 }));
 
 
-const DiaryPage = () => {
+const AddDiariesPage = () => {
   const {id} = useParams();
   const currentDate = new Date().toLocaleDateString();
   const userName = 'John Doe'; // Replace this with the user's name
   const [diaryText,setDiaryText] = useState('');
-  const [flag,setFlag] = useState(0);
   const navigate = useNavigate();
 
   useEffect(()=>{
     const fetchData = async () => { 
       try{
-        const databaseId = parseInt(id)-1
-        const response = await apis.get(`/${databaseId}`)
+        const response = await apis.get(`/${id}`)
         
         setDiaryText(response.data.data.diaries.text);
-        // setFlag(1)
-        console.log(response)
+        console.log(response.data.data.diaries)
       }catch(error){
         console.error(error)
       }
@@ -94,13 +91,11 @@ const DiaryPage = () => {
       e.preventDefault()
 
       try {
-     
-            const response = await apis.put(`/save/${id}`,{
-              id:id,
-              text:diaryText
-            });
-            navigate('/')
-          
+          const response = await apis.post('/save',{
+                      date:currentDate,
+                      text:diaryText
+                  });
+                  navigate('/')
         
       } catch (error) {
         
@@ -141,4 +136,4 @@ const DiaryPage = () => {
   );
 };
 
-export default DiaryPage;
+export default AddDiariesPage;
