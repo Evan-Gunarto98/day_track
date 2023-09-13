@@ -13,26 +13,27 @@ const DiaryCard = styled(Card)(({ theme }) => ({
   flexDirection:'column',
   alignItems:'center',
   width: '100%',
-  height:'100%',
   maxWidth:'80vw',
-  maxHeight:'100vh',
   marginBottom: theme.spacing(2),
   backgroundColor: '#f0f0f0',
+  paddingTop:'20px'
+
 }));
 
 const DiaryHeader = styled(CardContent)({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
-  width:'90%'
+  width:'90%',
+  position:'fixed'
 });
 
 const DiaryTextArea = styled(TextField)({
   width:'90%',
-  marginLeft:'20px',
-  marginRight:'20px',
+  margin:'20px',
   marginBottom: '8px',
-   height:'80vh',
+
+
   
 });
 
@@ -41,18 +42,10 @@ const TextContainer = styled(Container)({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    overrides: {
-      MuiFormControl: {
-        root: {
-          height: '200px',
-        },
-      },
-      MuiInputBase: {
-        root: {
-          height: '200Px',
-        },
-      },
-    }
+    flexDirection:'column',
+    
+    
+    
 });
 
 const ViewButton = styled(Button)(() => ({
@@ -68,7 +61,9 @@ const DiaryPage = () => {
   const userName = 'John Doe'; // Replace this with the user's name
   const [diaryText,setDiaryText] = useState('');
   const [flag,setFlag] = useState(0);
+  const [rowHeight,setRowHeight] = useState(1)
   const navigate = useNavigate();
+
 
   useEffect(()=>{
     const fetchData = async () => { 
@@ -79,6 +74,7 @@ const DiaryPage = () => {
         setDiaryText(response.data.data.diaries.text);
         // setFlag(1)
         console.log(response)
+        dynamicRow();
       }catch(error){
         console.error(error)
       }
@@ -90,27 +86,31 @@ const DiaryPage = () => {
 
 
   const handleSave = async(e) =>{
-   
       e.preventDefault()
-
       try {
-     
             const response = await apis.put(`/save/${id}`,{
               id:id,
               text:diaryText
             });
             navigate('/')
-          
-        
       } catch (error) {
         
       }
   }
 
+
+  const dynamicRow = () =>{
+    // if (window.innerWidth <= 800) {
+    //   setRowHeight(25)
+    // } else {
+      setRowHeight(0) 
+  // }
+  }
+
   return (
     <div class="container" style={{ backgroundColor: '#202020' }} >
-        <Header/>
-        <TextContainer style={{height:'100vh',display:'flex',justifyContent:'center',alignItems:'center'
+        <Header />
+        <TextContainer style={{display:'flex',justifyContent:'center',alignItems:'center'
     ,flexDirection:'column'}}>
              <DiaryCard>
                 <DiaryHeader>
@@ -118,14 +118,14 @@ const DiaryPage = () => {
                     {currentDate}
                     </Typography>
                     <Typography variant="subtitle1" component="div">
-                    {userName}
+                    {/* {userName} */}
                     </Typography>
                 </DiaryHeader>
                 <DiaryTextArea
                     id="diary-entry"
                     label="Write here..."
                     multiline
-                    rows={10}
+                    rows={rowHeight}
                     variant="outlined"
                     value={diaryText}
                     onChange={e => setDiaryText(e.target.value)}

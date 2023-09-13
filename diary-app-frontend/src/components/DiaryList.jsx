@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useRef } from 'react';
 import { Card, CardContent, Typography, Container, colors,Button, ListItemSecondaryAction } from '@mui/material';
 import { styled } from '@mui/system';
 import Slider from 'react-slick';
@@ -10,26 +10,44 @@ import { useParams } from 'react-router-dom';
 
 const StyledCard = styled(Card)(({ theme, isActiveCard }) => ({
   margin:'20px',
-  display: 'flex',
+
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
-  height: isActiveCard ? '320px' : '280px',
   transition: 'height 0.2s ease-in-out',
 }));
 
 const ViewButton = styled(Button)(() => ({
   display: 'flex',
-  background: '#202020'
+  background: '#202020',
+
+}));
+
+const ButtonLink = styled(Link)(() => ({
+  textDecoration: 'none',
+ color:'white'
 }));
 
 
 
-
-const DiaryList = () => {
+const DiaryList = (props) => {
 
   const [diaries,setDiaries] = useState([]);
+  const propData = props.calendarData;
+  const [selectedDate,setSelectedDate] = useState('');
+  
+  const sliderRef = useRef(null)
 
+  const countDatabaseId = () => {
+    const startDatabaseId = Math.min(...diaries.map(diary => diary.id))
+    console.log(startDatabaseId)
+  }
+
+  const findSelectedDate = (selectedDate) => {
+    console.log(selectedDate)
+    const found = diaries.find(diary => diary.id ===  120)
+    console.log(found)
+  }
 
 
   useEffect(()=>{
@@ -38,14 +56,23 @@ const DiaryList = () => {
         const response = await apis.get('/')
         
         setDiaries(response.data.data.diaries);
-       
+        // console.log(response)
+        
+       setSelectedDate(`${propData.$y}-${propData.$M}-${propData.$D}`)
+        // console.log(props.calendarData)
+        // console.log(propData)
+        // console.log(selectedDate)
+        // console.log(startDatabaseId)
+        //  console.log(diaries)
+        //  countDatabaseId()
+        findSelectedDate(selectedDate);
       }catch(error){
         console.error(error)
       }
     }
 
     fetchData()
-  },[])
+  },[props])
 
   const handleDelete = async(id) =>{
     // e.stopPropagation()
@@ -66,27 +93,38 @@ const DiaryList = () => {
       }
   }
 
-
-
-  const [activeIndex, setActiveIndex] = useState(1);
-
-  const handleAfterChange = (index) => {
-    setActiveIndex(index);
+  const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+    return new Date(dateString).toLocaleDateString(undefined, options);
   };
+
+  const formatText = (text) => {
+    if(text.length>100){
+      text = text.slice(0,100)+'...'
+      console.log(text.length)
+    }
+    return text
+  }
+
+  
+
+  // const handleAfterChange = (index) => {
+  //   setActiveIndex(114)
+  // };
 
   const sliderSettings = {
     dots: false,
     infinite:diaries.length > 3 ,
-    speed: 500,
+    speed: 1000,
     slidesToShow: 3,
     slidesToScroll: 1,
     outerWidth:100,
-    centerMode:true,
-    focusOnSelect: true,
+    // centerMode:true,
+    // focusOnSelect: true,
     autoplay: true,
-    autoplaySpeed: 1000,
-    // initialSlide: 1,
-    afterChange: handleAfterChange,
+    // autoplaySpeed: 1000,
+    initialSlide: 0,
+    // beforeChange: handleAfterChange,
     responsive: [
       {
         breakpoint: 1200,
@@ -108,28 +146,28 @@ const DiaryList = () => {
 
   return (
 
-    <Slider {...sliderSettings}  >
+    <Slider ref={sliderRef} {...sliderSettings}  >
       {diaries.map((diary, index) => (
       
         <div key = {diary.id}>
-            <StyledCard isActiveCard={index === activeIndex}>
+            <StyledCard >
               <CardContent>
                 <Typography variant="h6" component="div">
-                  {diary.date}
+                  {formatDate(diary.date)}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  {diary.text}
+                  {formatText(diary.text)}
                 </Typography>  
                  
                     <ViewButton variant="contained">
-                      <Link to={`/diary/${diary.id}`} style={{textDecoration: 'none',}} >
+                      <ButtonLink to={`/diary/${diary.id}`} style={{textDecoration: 'none',}} >
                       Open Diary 
-                      </Link>
+                      </ButtonLink>
                     </ViewButton>
                     <ViewButton onClick={() => handleDelete(diary.id)} variant="contained" >
-                      <Link  style={{textDecoration: 'none',}} >
+                      <ButtonLink  style={{textDecoration: 'none',}} >
                       Delete 
-                      </Link>
+                      </ButtonLink>
                     </ViewButton>
                
                

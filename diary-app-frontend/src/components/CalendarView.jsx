@@ -1,4 +1,4 @@
-import  React from 'react';
+import  React, { useState } from 'react';
 
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -9,12 +9,22 @@ const StyledCalendar = styled(DateCalendar)(({ theme }) => ({
     background:'white',
     marginTop:'50px'
   }));
+
   
 
-const CalendarView = () =>{
+
+const CalendarView = (props) =>{
+  const [selectedDate, setSelectedDate] = useState(null);
+
+  const handleDateChange = (newDate) => {
+    setSelectedDate(newDate);
+    props.onDateData(newDate)
+  };
+  
+
   return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <StyledCalendar />
+        <StyledCalendar onChange={handleDateChange}/>
         </LocalizationProvider>
   );
 }

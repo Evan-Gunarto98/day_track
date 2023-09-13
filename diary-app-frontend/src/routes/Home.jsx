@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import { Container } from '@mui/material';
@@ -9,8 +9,14 @@ import AddDiaryButton from '../components/AddDiaryButton';
 
 
 const Home = () => {
+  const [dateData,setDateData] = useState('');
+
+  const handleDateData = (data) => {
+    setDateData(data);
+    
+  };
   return (
-  
+    
 
     <div  style={{
        backgroundColor: '#202020' 
@@ -19,12 +25,13 @@ const Home = () => {
         alignItems:'center',
         justifyContent:'center'
        }} >
+
     <Header/>
       <div className='container'>  
-      
-        <DiaryList/>
+        
+        <DiaryList calendarData={dateData}/>
         <AddDiaryButton/>
-        <CalendarView/> 
+        <CalendarView onDateData={handleDateData} /> 
         
       </div>
      <Footer/> 

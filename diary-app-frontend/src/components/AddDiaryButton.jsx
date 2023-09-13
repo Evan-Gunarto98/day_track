@@ -6,7 +6,11 @@ import apis from '../apis';
 
 const AddButton = styled(Button)(() => ({
   display: 'flex',
-  background: '#FFFFFF'
+  background: '#FFFFFF',
+}));
+
+const ButtonLink = styled(Link)(() => ({
+  textDecoration: 'none'
 }));
 
 const AddDiaryButton = () => {
@@ -56,10 +60,9 @@ const AddDiaryButton = () => {
         alignItems: 'center',
       }}>
         <AddButton>
-          <Link to={'/add'}>
-          YOLOE
-          </Link>
-          
+          <ButtonLink to={'/add'}>
+          Create Diary
+          </ButtonLink>
         </AddButton>
       </div>
     </div>
