@@ -11,14 +11,18 @@ const StyledCalendar = styled(DateCalendar)(({ theme }) => ({
   }));
 
   
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toISOString();
+  };
 
 
 const CalendarView = (props) =>{
   const [selectedDate, setSelectedDate] = useState(null);
 
   const handleDateChange = (newDate) => {
-    setSelectedDate(newDate);
-    props.onDateData(newDate)
+    setSelectedDate(formatDate(newDate));
+    props.onDateData(formatDate(newDate))
   };
   
 
