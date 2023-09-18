@@ -1,14 +1,13 @@
 body {
     margin: 0; /* Remove default margin */
     padding: 0; /* Remove default padding */
-    overflow-x: hidden; /* Hide horizontal overflow */
+    overflow-x: hidden; 
   }
   
   .container {
     min-height: 100vh;
-    
-    background-color: #202020; /* Set background color */
-    display:flex;
+    overflow: hidden;
+    background-color: #202020; 
     height: 100%;
     width: 100%;
     flex-direction: column;
@@ -16,4 +15,3 @@ body {
 
     
   }
-

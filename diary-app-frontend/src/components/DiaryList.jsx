@@ -9,8 +9,15 @@ import { Link } from 'react-router-dom';
 import apis from '../apis';
 import debounce from 'lodash/debounce';
 
+const StyledSlider = styled(Slider)(() => ({
+
+}))
+
 const StyledCard = styled(Card)(({ theme, isActiveCard }) => ({
+ 
+
   margin: '20px',
+  
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
@@ -18,11 +25,13 @@ const StyledCard = styled(Card)(({ theme, isActiveCard }) => ({
 }));
 
 const ViewButton = styled(Button)(() => ({
+  marginTop:'10px',
   display: 'flex',
   background: '#202020',
 }));
 
 const ButtonLink = styled(Link)(() => ({
+  
   textDecoration: 'none',
   color: 'white',
 }));
@@ -49,8 +58,10 @@ const DiaryList = (props) => {
 
 
   useEffect(() => {
+    
     const selectedIndex = diaries.findIndex((diary) => diary.date === propData);
-  
+    console.log(selectedIndex)
+
     if (selectedIndex !== activeSlide) {
       if (selectedIndex !== -1 && sliderRef.current) {
         sliderRef.current.slickGoTo(selectedIndex);
@@ -125,15 +136,15 @@ const handleBeforeChange = debounce((current, next) => {
   };
 
   return (
-    <Slider ref={sliderRef} {...sliderSettings}>
+    <StyledSlider ref={sliderRef} {...sliderSettings} >
       {diaries.map((diary, index) => (
-        <div key={diary.id}>
+        <div key={diary.id}> 
           <StyledCard>
             <CardContent>
               <Typography variant="h6" component="div">
                 {formatDate(diary.date)}
               </Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2" >
                 {formatText(diary.text)}
               </Typography>
 
@@ -142,16 +153,16 @@ const handleBeforeChange = debounce((current, next) => {
                   Open Diary
                 </ButtonLink>
               </ViewButton>
-          <ViewButton onClick={() => handleDelete(diary.id)} variant="contained" >
+              <ViewButton onClick={() => handleDelete(diary.id)} variant="contained" >
                 <ButtonLink  style={{textDecoration: 'none',}} >
                   Delete 
                 </ButtonLink>
               </ViewButton>
             </CardContent>
           </StyledCard>
-        </div>
-      ))}
-    </Slider>
+         </div> 
+       ))} 
+    </StyledSlider>
   );
 };
 

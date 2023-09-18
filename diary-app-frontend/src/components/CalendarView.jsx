@@ -7,7 +7,8 @@ import { styled } from '@mui/system';
 
 const StyledCalendar = styled(DateCalendar)(({ theme }) => ({
     background:'white',
-    marginTop:'50px'
+    marginTop:'50px',
+    borderRadius:'20px'
   }));
 
   
