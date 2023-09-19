@@ -18,14 +18,15 @@ const DiaryCard = styled(Card)(({ theme }) => ({
   backgroundColor: '#f0f0f0',
   paddingTop:'20px'
 
+
 }));
 
 const DiaryHeader = styled(CardContent)({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
-  width:'90%',
-  position:'fixed'
+  
+
 });
 
 const DiaryTextArea = styled(TextField)({
@@ -48,6 +49,14 @@ const TextContainer = styled(Container)({
     
 });
 
+const formatDate = (dateString) => {
+  const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+  return new Date(dateString).toLocaleDateString(undefined, options);
+};
+  
+
+
+
 const ViewButton = styled(Button)(() => ({
   display: 'flex',
   margin: '20px',
@@ -60,6 +69,7 @@ const DiaryPage = () => {
   const currentDate = new Date().toLocaleDateString();
   const userName = 'John Doe'; // Replace this with the user's name
   const [diaryText,setDiaryText] = useState('');
+  const [diaryDate,setDiaryDate] = useState('');
   const [flag,setFlag] = useState(0);
   const [rowHeight,setRowHeight] = useState(1)
   const navigate = useNavigate();
@@ -72,6 +82,7 @@ const DiaryPage = () => {
         const response = await apis.get(`/${databaseId}`)
         
         setDiaryText(response.data.data.diaries.text);
+        setDiaryDate(response.data.data.diaries.date);
         // setFlag(1)
         console.log(response)
         dynamicRow();
@@ -115,7 +126,7 @@ const DiaryPage = () => {
              <DiaryCard>
                 <DiaryHeader>
                     <Typography variant="subtitle2" color="textSecondary">
-                    {currentDate}
+                    {formatDate(diaryDate)}
                     </Typography>
                     <Typography variant="subtitle1" component="div">
                     {/* {userName} */}

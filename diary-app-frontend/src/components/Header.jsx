@@ -12,8 +12,8 @@ const StyledTypography = styled(Typography)(({ theme }) => ({
   flexGrow: 1,
   fontWeight: 'bold',
   letterSpacing: '2px',
-  fontFamily: 'inherit',
-  color: 'red'
+  // fontFamily: 'inherit',
+ color:'white'
 }));
 
 const Header = () => {
@@ -28,13 +28,13 @@ const Header = () => {
         </StyledTypography>
         <div style={{ marginLeft: 'auto' }}>
           <Link to="/register" style={{ textDecoration: 'none', color: 'inherit', marginRight:'10px' }}>
-            Gallery    
+            {/* Gallery     */}
           </Link>
           <Link to="/login" style={{ textDecoration: 'none', color: 'inherit', marginRight: '10px' }}>
-            Login
+            {/* Login */}
           </Link>
           <Link to="/register" style={{ textDecoration: 'none', color: 'inherit' }}>
-            Register
+            {/* Register */}
           </Link>
         
           {/* Add other links here to navigate to other pages */}

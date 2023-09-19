@@ -11,7 +11,7 @@ const AddButton = styled(Button)(() => ({
 
 const ButtonLink = styled(Link)(() => ({
   textDecoration: 'none',
-  color:'black'
+  color:'black',
 }));
 
 const AddDiaryButton = () => {
