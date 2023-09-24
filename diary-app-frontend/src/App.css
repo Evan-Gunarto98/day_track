@@ -3,6 +3,11 @@ body {
     padding: 0; /* Remove default padding */
     overflow-x: hidden; 
   }
+
+
+  *{
+    font-family: 'Roboto', sans-serif;
+  }
   
   .container {
     min-height: 100vh;

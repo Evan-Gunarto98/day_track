@@ -26,17 +26,17 @@ const Footer = () => {
         &copy; {new Date().getFullYear()} DayTrack. All rights reserved.
       </Typography>
       <Typography variant="body2">
-        Built with love by{' '}
+       
         <StyledLink
           href="https://www.example.com"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Your Name
+        
         </StyledLink>
       </Typography>
       <Typography>
-        nib nab nob
+
       </Typography>
     </StyledFooter>
   );

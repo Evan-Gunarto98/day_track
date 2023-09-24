@@ -110,6 +110,8 @@ const DiaryPage = () => {
   }
 
 
+
+
   const dynamicRow = () =>{
     // if (window.innerWidth <= 800) {
     //   setRowHeight(25)
@@ -142,7 +144,7 @@ const DiaryPage = () => {
                     onChange={e => setDiaryText(e.target.value)}
                 />
                 {/* Add a save button or any other actions here */}
-                <ViewButton variant="contained" onClick={handleSave}>Save Diary</ViewButton>
+                <ViewButton variant="contained" id='saveButton' onClick={handleSave}>Save Diary</ViewButton>
             
             </DiaryCard>
         </TextContainer>

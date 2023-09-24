@@ -22,12 +22,16 @@ const StyledCard = styled(Card)(({ theme, isActiveCard }) => ({
   alignItems: 'center',
   justifyContent: 'center',
   transition: 'height 0.2s ease-in-out',
+  borderRadius:'10px'
 }));
 
 const ViewButton = styled(Button)(() => ({
   marginTop:'10px',
   display: 'flex',
   background: '#202020',
+  '&:hover': {
+    background: 'grey', // Change the color when the button is hovered
+  },
 }));
 
 const ButtonLink = styled(Link)(() => ({

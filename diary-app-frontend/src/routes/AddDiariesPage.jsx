@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState,useRef } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import { Card, CardContent, Typography, TextField, Button,Container } from '@mui/material';
@@ -18,14 +18,15 @@ const DiaryCard = styled(Card)(({ theme }) => ({
   backgroundColor: '#f0f0f0',
   paddingTop:'20px'
 
+
 }));
 
 const DiaryHeader = styled(CardContent)({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
-  width:'90%',
-  position:'fixed'
+  
+
 });
 
 const DiaryTextArea = styled(TextField)({
@@ -48,11 +49,15 @@ const TextContainer = styled(Container)({
     
 });
 
+
+
+
 const ViewButton = styled(Button)(() => ({
   display: 'flex',
   margin: '20px',
   background: '#202020'
 }));
+
 
 
 const AddDiariesPage = () => {
@@ -63,6 +68,7 @@ const AddDiariesPage = () => {
   const [flag,setFlag] = useState(0);
   const [rowHeight,setRowHeight] = useState(1)
   const navigate = useNavigate();
+  const ref = useRef(null)
 
 
   useEffect(()=>{
@@ -137,7 +143,7 @@ const AddDiariesPage = () => {
                     onChange={e => setDiaryText(e.target.value)}
                 />
                 {/* Add a save button or any other actions here */}
-                <ViewButton variant="contained" onClick={handleSave}>Save Diary</ViewButton>
+                <ViewButton variant="contained" ref={ref} onClick={handleSave}>Save Diary</ViewButton>
             
             </DiaryCard>
         </TextContainer>
