@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState,useContext, createContext} from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import { Container } from '@mui/material';
@@ -7,14 +7,22 @@ import DiaryList from '../components/DiaryList';
 import CalendarView from '../components/CalendarView';
 import AddDiaryButton from '../components/AddDiaryButton';
 
+ const AppContext = createContext();
 
 const Home = () => {
   const [dateData,setDateData] = useState('');
-
+  const [refreshFlag, setRefreshFlag] = useState(false)
   const handleDateData = (data) => {
     setDateData(data);
     
   };
+
+  const refreshAddDiaryButton = () =>{
+    setRefreshFlag(!refreshFlag)
+  }
+
+ 
+
   return (
     
 
@@ -29,8 +37,10 @@ const Home = () => {
     <Header/>
       <div className='container'>  
         
+        <AppContext.Provider value = {{refreshAddDiaryButton}}>
         <DiaryList calendarData={dateData}/>
         <AddDiaryButton/>
+        </AppContext.Provider>
         <CalendarView onDateData={handleDateData} /> 
         
       </div>
@@ -41,4 +51,9 @@ const Home = () => {
   )
 }
 
+export const useAppContext = () => {
+  return useContext(AppContext);
+};
+
 export default Home
+

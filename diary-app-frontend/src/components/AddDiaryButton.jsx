@@ -1,4 +1,5 @@
 import React, { useEffect, useState ,useRef} from "react";
+import { useAppContext } from '../routes/Home';
 import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { styled } from '@mui/system';
@@ -31,6 +32,7 @@ const day = String(currDate.getDate()).padStart(2, '0');
 
 const currentDate = `${month}/${day}/${year}`;
   const ref = useRef(null);
+  const {refreshAddDiaryButton} = useAppContext();
 
   // const handleSave = async () => {
   //   try {
@@ -66,11 +68,11 @@ const currentDate = `${month}/${day}/${year}`;
     
     fetchData();
    
-  }, []);
+  }, [refreshAddDiaryButton]);
 
-  // useEffect(() => {
-  //   checkMade();
-  // }, [ttldiaries]);
+  useEffect(() => {
+    checkMade();
+  }, [ttldiaries,hideButton,flag]);
 
 
   const formatDate = (dateString) => {
@@ -79,28 +81,23 @@ const currentDate = `${month}/${day}/${year}`;
   };
 
   // next feature dont allow dupes
-  // const checkMade = () =>{
+  const checkMade = () =>{
   
-  //   console.log(currentDate)
-  //   // console.log(ttldiaries[0].date)
-  //   var datecollection = ttldiaries.filter((x) => formatDate(x.date) === currentDate)
-  //   if(datecollection.length!== 0){
-  //     setFlag(1)
-  //     console.log(datecollection)
-  //   }else{
-  //     setFlag(0)
-  //     console.log('empty')
-  //   }
+    console.log(currentDate)
+    // console.log(ttldiaries[0].date)
+    var datecollection = ttldiaries.filter((x) => formatDate(x.date) === currentDate)
+    if(datecollection.length!== 0){
+      setFlag(1)
+      console.log(datecollection) 
+      setHideButton('Wait tomorrow')
+    }else{
+      setFlag(0)
+      console.log('empty')
+      setHideButton('Create Diary')
+    }
     
-  //   if(datecollection.length!== 0){
-  //     setFlag(1)
-  //     setHideButton('Wait tomorrow')
-  //   }else{
-  //     setFlag(0)
-  //     setHideButton('Create Diary')
-  //   }
-
-  // }
+  
+  }
 
   return (
     <div>
@@ -112,7 +109,7 @@ const currentDate = `${month}/${day}/${year}`;
       }}>
         <AddButton >
           <ButtonLink ref={ref} to={'/add'} >
-            Create Diary
+            {hideButton}
           </ButtonLink>
         </AddButton>
       </div>
