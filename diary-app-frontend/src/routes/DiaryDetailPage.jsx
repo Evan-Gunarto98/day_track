@@ -70,7 +70,6 @@ const DiaryPage = () => {
   const userName = 'John Doe'; // Replace this with the user's name
   const [diaryText,setDiaryText] = useState('');
   const [diaryDate,setDiaryDate] = useState('');
-  const [flag,setFlag] = useState(0);
   const [rowHeight,setRowHeight] = useState(1)
   const navigate = useNavigate();
 
@@ -80,12 +79,9 @@ const DiaryPage = () => {
       try{
         const databaseId = parseInt(id)-1
         const response = await apis.get(`/${databaseId}`)
-        
         setDiaryText(response.data.data.diaries.text);
         setDiaryDate(response.data.data.diaries.date);
-        // setFlag(1)
-        console.log(response)
-        dynamicRow();
+
       }catch(error){
         console.error(error)
       }
@@ -96,8 +92,8 @@ const DiaryPage = () => {
   },[])
 
 
-  const handleSave = async(e) =>{
-      e.preventDefault()
+  const handleSave = async() =>{
+     
       try {
             const response = await apis.put(`/save/${id}`,{
               id:id,
@@ -105,19 +101,8 @@ const DiaryPage = () => {
             });
             navigate('/')
       } catch (error) {
-        
+        console.error("Save failed:", error);
       }
-  }
-
-
-
-
-  const dynamicRow = () =>{
-    // if (window.innerWidth <= 800) {
-    //   setRowHeight(25)
-    // } else {
-      setRowHeight(0) 
-  // }
   }
 
   return (

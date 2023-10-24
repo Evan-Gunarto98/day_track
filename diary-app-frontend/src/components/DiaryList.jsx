@@ -1,6 +1,7 @@
 
 import React, { useEffect, useState, useRef } from 'react';
 import { Card, CardContent, Typography, Button } from '@mui/material';
+import { useAppContext } from '../routes/Home';
 import { styled } from '@mui/system';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
@@ -14,10 +15,7 @@ const StyledSlider = styled(Slider)(() => ({
 }))
 
 const StyledCard = styled(Card)(({ theme, isActiveCard }) => ({
- 
-
   margin: '20px',
-  
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
@@ -46,6 +44,7 @@ const DiaryList = (props) => {
 
   const sliderRef = useRef(null);
   const [activeSlide, setActiveSlide] = useState(0);
+  const {refreshAddDiaryButton} = useAppContext();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -58,7 +57,7 @@ const DiaryList = (props) => {
     };
 
     fetchData();
-  }, []);
+  }, [diaries]);
 
 
   useEffect(() => {
@@ -86,29 +85,25 @@ const DiaryList = (props) => {
     return text;
   };
 
-    const handleDelete = async(id) =>{
-    // e.stopPropagation()
-      try {
-       
-          const response = await apis.delete(`/${id}`)
-        
-                      
-        // setDiaries(diaries.filter(diary=>{
-        //   return diary.id !== id
-        // }))
-        console.log(id)
-        setDiaries(diaries.filter(x => x.id!==id
-        ))
+  const handleDelete = async(id) =>{
+    try {
+        const response = await apis.delete(`/${id}`)        
+        setDiaries(diaries.filter(diary=>{
+          return diary.id !== id
+        }))
+        refreshAddDiaryButton()
+        // console.log(id)
+        // setDiaries(diaries.filter(x => x.id!==id))
       
       } catch (error) {
         console.error(error)
       }
   }
   
-const handleBeforeChange = debounce((current, next) => {
-  console.log('Before change - current:', current, 'next:', next);
-  setActiveSlide(next);
-}, 200); //
+  const handleBeforeChange = debounce((current, next) => {
+    console.log('Before change - current:', current, 'next:', next);
+    setActiveSlide(next);
+  }, 200); //
 
   const sliderSettings = {
     
