@@ -27,10 +27,10 @@ const Home = () => {
     
 
     <div  style={{
-       backgroundColor: '#202020' 
+       backgroundColor: '#272829' 
         ,display:'flex',
         flexDirection:'column',
-        alignItems:'center',
+        alignItems:'space-between',
         justifyContent:'center'
        }} >
 
@@ -39,9 +39,10 @@ const Home = () => {
         
         <AppContext.Provider value = {{refreshAddDiaryButton}}>
         <DiaryList calendarData={dateData}/>
+        <CalendarView onDateData={handleDateData} /> 
         <AddDiaryButton/>
         </AppContext.Provider>
-        <CalendarView onDateData={handleDateData} /> 
+      
         
       </div>
      <Footer/> 

@@ -6,7 +6,7 @@ import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { styled } from '@mui/system';
 
 const StyledCalendar = styled(DateCalendar)(({ theme }) => ({
-    background:'white',
+    background:'#61677A',
     marginTop:'50px',
     borderRadius:'20px'
   }));

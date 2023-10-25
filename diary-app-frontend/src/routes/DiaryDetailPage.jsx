@@ -15,9 +15,9 @@ const DiaryCard = styled(Card)(({ theme }) => ({
   width: '100%',
   maxWidth:'80vw',
   marginBottom: theme.spacing(2),
-  backgroundColor: '#f0f0f0',
+  backgroundColor: '#272829',
   paddingTop:'20px'
-
+  
 
 }));
 
@@ -106,7 +106,7 @@ const DiaryPage = () => {
   }
 
   return (
-    <div class="container" style={{ backgroundColor: '#202020' }} >
+    <div class="container" style={{ backgroundColor: '#272829' }} >
         <Header />
         <TextContainer style={{display:'flex',justifyContent:'center',alignItems:'center'
     ,flexDirection:'column'}}>

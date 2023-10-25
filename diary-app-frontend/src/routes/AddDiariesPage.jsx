@@ -15,7 +15,7 @@ const DiaryCard = styled(Card)(({ theme }) => ({
   width: '100%',
   maxWidth:'80vw',
   marginBottom: theme.spacing(2),
-  backgroundColor: '#f0f0f0',
+  backgroundColor: '#272829',
   paddingTop:'20px'
 
 
@@ -44,7 +44,7 @@ const TextContainer = styled(Container)({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection:'column',
-    
+    background:'#272829'
     
     
 });

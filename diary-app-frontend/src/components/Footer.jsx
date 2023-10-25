@@ -3,16 +3,17 @@ import { Box, Typography, Link } from '@mui/material';
 import { styled } from '@mui/system';
 
 const StyledFooter = styled(Box)(({ theme }) => ({
-  backgroundColor: '#202020', // Dark background color
-  color: '#fff', // Text color
+  background: '#272829', // Dark background color
+  color: '#FFF6E0', // Text color
   padding: theme.spacing(3),
   textAlign: 'center',
 
 }));
 
 const StyledLink = styled(Link)(({ theme }) => ({
-  color: '#fff',
+  color: '#331D2C',
   textDecoration: 'none',
+  background:'#272829',
   '&:hover': {
     textDecoration: 'underline',
     color:'red'

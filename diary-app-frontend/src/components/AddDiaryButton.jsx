@@ -1,22 +1,24 @@
 import React, { useEffect, useState ,useRef} from "react";
+
 import { useAppContext } from '../routes/Home';
 import { Button } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link ,useNavigate} from 'react-router-dom';
 import { styled } from '@mui/system';
 import apis from '../apis';
 
 const AddButton = styled(Button)(() => ({
   display: 'flex',
-  background: '#FFFFFF', 
+  background: '#61677A', 
   '&:hover': {
     background: 'grey', // Change the color when the button is hovered
-  },
+  },  
+  
 }));
 
 const ButtonLink = styled(Link)(() => ({
   textDecoration: 'none',
   fontWeight:600,
-  color:'black',
+  color:'#FFF6E0',
   transition: 'color 0.3s', // Add a transition for a smooth color change
  
 }));
@@ -26,10 +28,11 @@ const AddDiaryButton = () => {
   const currDate = new Date();
   const [flag,setFlag] = useState('0')
   const [hideButton,setHideButton] = useState('');
+  const [disableButton,setDisableButton] = useState(false);
   const year = currDate.getFullYear();
 const month = String(currDate.getMonth() + 1).padStart(2, '0');
 const day = String(currDate.getDate()).padStart(2, '0');
-
+const navigate = useNavigate();
 const currentDate = `${month}/${day}/${year}`;
   const ref = useRef(null);
   const {refreshAddDiaryButton} = useAppContext();
@@ -55,12 +58,18 @@ const currentDate = `${month}/${day}/${year}`;
   //   }
   // }
 
+  const handleButtonClick = () => {
+   
+    console.log('buttonclicked')
+    navigate('/add')
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await apis.get('/');
         setTtlDiaries(response.data.data.diaries);
-       
+        console.log(refreshAddDiaryButton)
       } catch (error) {
         console.error(error);
       }
@@ -90,10 +99,12 @@ const currentDate = `${month}/${day}/${year}`;
       setFlag(1)
       console.log(datecollection) 
       setHideButton('Wait tomorrow')
+      setDisableButton(true)
     }else{
       setFlag(0)
       console.log('empty')
       setHideButton('Create Diary')
+      setDisableButton(false)
     }
     
   
@@ -102,13 +113,14 @@ const currentDate = `${month}/${day}/${year}`;
   return (
     <div>
       <div style={{
-        marginTop: '100px',
+        marginTop: '50px',
+        marginBelow: '100px',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
       }}>
         <AddButton >
-          <ButtonLink ref={ref} to={'/add'} >
+          <ButtonLink ref={ref} onClick={handleButtonClick} >
             {hideButton}
           </ButtonLink>
         </AddButton>

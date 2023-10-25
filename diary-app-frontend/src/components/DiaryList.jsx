@@ -20,7 +20,9 @@ const StyledCard = styled(Card)(({ theme, isActiveCard }) => ({
   alignItems: 'center',
   justifyContent: 'center',
   transition: 'height 0.2s ease-in-out',
-  borderRadius:'10px'
+  borderRadius:'10px',
+  background:'#61677A',
+  color:'#FFF6E0'
 }));
 
 const ViewButton = styled(Button)(() => ({
@@ -35,7 +37,7 @@ const ViewButton = styled(Button)(() => ({
 const ButtonLink = styled(Link)(() => ({
   
   textDecoration: 'none',
-  color: 'white',
+  color: '#FFF6E0',
 }));
 
 const DiaryList = (props) => {
@@ -57,7 +59,7 @@ const DiaryList = (props) => {
     };
 
     fetchData();
-  }, [diaries]);
+  }, []);
 
 
   useEffect(() => {
@@ -103,7 +105,7 @@ const DiaryList = (props) => {
   const handleBeforeChange = debounce((current, next) => {
     console.log('Before change - current:', current, 'next:', next);
     setActiveSlide(next);
-  }, 200); //
+  }, 1000); //
 
   const sliderSettings = {
     

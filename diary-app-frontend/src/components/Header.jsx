@@ -4,7 +4,7 @@ import { styled } from '@mui/system';
 import {Link} from 'react-router-dom';
 
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
-  backgroundColor: '#202020', // Dark background color
+  backgroundColor: '#272829', // Dark background color
   borderBottom: `1px solid ${theme.palette.divider}`,
 }));
 
@@ -13,7 +13,7 @@ const StyledTypography = styled(Typography)(({ theme }) => ({
   fontWeight: 'bold',
   letterSpacing: '2px',
   // fontFamily: 'inherit',
- color:'white'
+ color:'#FFF6E0'
 }));
 
 const Header = () => {
