@@ -119,8 +119,8 @@ const currentDate = `${month}/${day}/${year}`;
         justifyContent: 'center',
         alignItems: 'center',
       }}>
-        <AddButton >
-          <ButtonLink ref={ref} onClick={handleButtonClick} >
+        <AddButton onClick={handleButtonClick} disabled={disableButton}>
+          <ButtonLink ref={ref}  >
             {hideButton}
           </ButtonLink>
         </AddButton>
